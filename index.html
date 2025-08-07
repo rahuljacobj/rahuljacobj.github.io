@@ -61,7 +61,6 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      /* THE CHANGE IS HERE: Replaced the green color with a sunset pinkish-red */
       border: 5px solid #E85D75;
       cursor: pointer;
       transition: transform 0.3s ease;
@@ -171,6 +170,167 @@
       color: #fff;
     }
 
+    /* Chat Button Styles */
+    .chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: rgba(232, 93, 117, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(232, 93, 117, 0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      color: white;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .chat-button:hover {
+      background: rgba(232, 93, 117, 1);
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(232, 93, 117, 0.4);
+    }
+
+    .chat-button.form-open {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+
+    /* Chat Form Styles */
+    .chat-form-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      max-height: 500px;
+      background: rgba(30, 30, 30, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      z-index: 999;
+      transition: all 0.3s ease;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chat-form-container.hidden {
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+    }
+
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .chat-header h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .chat-close-button {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #aaa;
+      transition: color 0.3s ease;
+    }
+
+    .chat-close-button:hover {
+      color: #fff;
+    }
+
+    .form-group {
+      padding: 8px 16px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #E85D75;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .submit-button {
+      width: calc(100% - 32px);
+      margin: 16px;
+      background: #E85D75;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .submit-button:hover {
+      background: #d14966;
+      transform: translateY(-1px);
+    }
+
+    .success-message {
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .success-message h3 {
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    .new-message-button {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .new-message-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
     @media (max-width: 500px) {
       .card {
         padding: 20px;
@@ -181,6 +341,26 @@
       }
       h1 {
         font-size: 1.8em;
+      }
+      
+      .chat-form-container {
+        width: calc(100vw - 40px);
+        right: 20px;
+        left: 20px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .chat-form-container {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+      }
+      
+      .chat-button {
+        bottom: 10px;
+        right: 10px;
       }
     }
   </style>
@@ -214,7 +394,7 @@
       <span class="close-button" id="closeBtn">&times;</span>
       <h2>About Me</h2>
       <p>
-        I'm Rahul, an MBA graduate with experience in financial operations and data handling. I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work.
+        I'm Rahul, an MBA graduate with experience in financial operations and data handling. I've worked at Northern Trust and am passionate about research, personal growth, and meaningful work.
       </p>
       <p>
         I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.
@@ -222,7 +402,52 @@
     </div>
   </div>
 
+  <!-- Chat Widget -->
+  <div id="chatButton" class="chat-button">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M8 12H16M8 8H16M8 16H13M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H21C21.55 4 22 4.45 22 5S21.55 6 21 6H20V19C20 20.1 19.1 21 18 21H6C4.9 21 4 20.1 4 19V6H3C2.45 6 2 5.55 2 5S2.45 4 3 4H7Z" fill="currentColor"/>
+    </svg>
+  </div>
+
+  <div id="chatFormContainer" class="chat-form-container hidden">
+    <div id="chatFormDiv" class="chat-form">
+      <div class="chat-header">
+        <h3>Send me a message</h3>
+        <button id="chatCloseButton" class="chat-close-button">&times;</button>
+      </div>
+      
+      <form id="chatForm" action="https://formsubmit.co/iamrahuljacobrj@gmail.com" method="POST">
+        <!-- Hidden fields for FormSubmit -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="box">
+        <input type="hidden" name="_subject" value="New message from your website">
+        <input type="hidden" name="_next" value="https://rahuljacobj.github.io/">
+        
+        <div class="form-group">
+          <input type="text" name="name" placeholder="Your name" required>
+        </div>
+        
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Your email" required>
+        </div>
+        
+        <div class="form-group">
+          <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
+        </div>
+        
+        <button type="submit" class="submit-button">Send Message</button>
+      </form>
+    </div>
+    
+    <div id="successMessage" class="success-message" style="display: none;">
+      <h3>✓ Message Sent!</h3>
+      <p>Thanks for reaching out! I'll get back to you soon.</p>
+      <button id="newMessageButton" class="new-message-button">Send Another Message</button>
+    </div>
+  </div>
+
   <script>
+    // About Me Modal
     const modal = document.getElementById("aboutMeModal");
     const profilePic = document.getElementById("profilePicture");
     const closeBtn = document.getElementById("closeBtn");
@@ -240,6 +465,95 @@
         modal.classList.remove("show");
       }
     }
+
+    // Chat Widget Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatButton = document.getElementById('chatButton');
+      const chatFormContainer = document.getElementById('chatFormContainer');
+      const chatCloseButton = document.getElementById('chatCloseButton');
+      const chatForm = document.getElementById('chatForm');
+      const chatFormDiv = document.getElementById('chatFormDiv');
+      const successMessage = document.getElementById('successMessage');
+      const newMessageButton = document.getElementById('newMessageButton');
+      
+      let isOpen = false;
+      
+      function openChat() {
+        chatFormContainer.classList.remove('hidden');
+        chatButton.classList.add('form-open');
+        isOpen = true;
+        
+        // Focus on first input after animation
+        setTimeout(() => {
+          const firstInput = chatForm.querySelector('input');
+          if (firstInput) {
+            firstInput.focus();
+          }
+        }, 300);
+      }
+      
+      function closeChat() {
+        chatFormContainer.classList.add('hidden');
+        chatButton.classList.remove('form-open');
+        isOpen = false;
+        
+        // Reset form and hide success message
+        setTimeout(() => {
+          chatForm.reset();
+          chatFormDiv.style.display = 'block';
+          successMessage.style.display = 'none';
+        }, 300);
+      }
+      
+      function showSuccessMessage() {
+        chatFormDiv.style.display = 'none';
+        successMessage.style.display = 'block';
+      }
+      
+      function showForm() {
+        chatFormDiv.style.display = 'block';
+        successMessage.style.display = 'none';
+        chatForm.reset();
+        
+        // Focus on first input
+        setTimeout(() => {
+          const firstInput = chatForm.querySelector('input');
+          if (firstInput) {
+            firstInput.focus();
+          }
+        }, 100);
+      }
+      
+      // Event listeners
+      chatButton.addEventListener('click', openChat);
+      chatCloseButton.addEventListener('click', closeChat);
+      newMessageButton.addEventListener('click', showForm);
+      
+      // Handle form submission
+      chatForm.addEventListener('submit', function(e) {
+        // Let the form submit naturally to FormSubmit
+        // Show success message after a short delay
+        setTimeout(() => {
+          showSuccessMessage();
+        }, 500);
+      });
+      
+      // Close when clicking outside
+      document.addEventListener('click', function(e) {
+        if (isOpen && 
+            !chatFormContainer.contains(e.target) && 
+            !chatButton.contains(e.target)) {
+          closeChat();
+        }
+      });
+      
+      // Close on escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isOpen) {
+          closeChat();
+        }
+      });
+    });
   </script>
 </body>
 </html>
