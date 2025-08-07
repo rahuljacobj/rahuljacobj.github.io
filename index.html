@@ -5,371 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rahul Jacob</title>
   <style>
-    /* Fullscreen Video Background */
-    #auroraBackground {
+    :root {
+      --bg-blur: rgba(255, 255, 255, 0.08);
+      --text-color: #fff;
+      --border-color: rgba(255, 255, 255, 0.2);
+      --modal-bg: rgba(30, 30, 30, 0.5);
+    }
+
+    body.darkmode {
+      --bg-blur: rgba(0, 0, 0, 0.3);
+      --text-color: #e0e0e0;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --modal-bg: rgba(10, 10, 10, 0.6);
+    }
+
+    .bulb-toggle {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      filter: brightness(0.6) blur(2px);
-    }
-
-    /* General Body Styling */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      color: #fff;
-      background-color: #000;
-    }
-
-    /* Glass Card Styling */
-    .card {
-      z-index: 1;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 15px;
-      padding: 30px;
-      max-width: 500px;
-      text-align: center;
-      animation: fadeInCard 1s ease-out forwards;
-    }
-    
-    @keyframes fadeInCard {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .profile-picture {
-      width: 150px;
-      height: 150px;
+      top: 20px;
+      right: 20px;
+      z-index: 1100;
+      background: rgba(255,255,255,0.08);
       border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 20px;
-      border: 5px solid #E85D75;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .profile-picture:hover {
-      transform: scale(1.05);
-    }
-
-    h1 {
-      font-size: 2em;
-      margin: 0;
-    }
-
-    .button {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      padding: 12px 25px;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: bold;
-      margin-top: 20px;
-      transition: background-color 0.3s, transform 0.3s;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
     }
 
-    .button:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-      transform: scale(1.05);
-    }
-    
-    .contact-links {
-        margin-top: 30px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding-top: 20px;
+    .bulb-toggle:hover {
+      background: rgba(255,255,255,0.15);
     }
 
-    .contact-links a {
-        margin: 0 15px;
-        display: inline-block;
-        transition: transform 0.2s ease;
-    }
-    
-    .contact-links a:hover {
-        transform: translateY(-3px);
+    .bulb-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--text-color);
+      transition: fill 0.3s ease;
     }
 
-    .contact-links svg {
-        width: 28px;
-        height: 28px;
-        fill: #fff;
+    body {
+      color: var(--text-color);
     }
 
-    /* Modal Styling */
-    .modal {
-      opacity: 0;
-      pointer-events: none;
-      position: fixed;
-      z-index: 2;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      transition: opacity 0.3s ease-in-out;
-    }
-    
-    .modal.show {
-        opacity: 1;
-        pointer-events: auto;
+    .card,
+    .chat-form-container,
+    .modal-content,
+    .submit-button,
+    .chat-button,
+    .new-message-button,
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg-blur) !important;
+      border-color: var(--border-color) !important;
+      color: var(--text-color) !important;
     }
 
     .modal-content {
-      background: rgba(30, 30, 30, 0.5);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-      text-align: center;
-      color: #fff;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      line-height: 1.6;
-    }
-
-    .close-button {
-      color: #aaa;
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .close-button:hover {
-      color: #fff;
-    }
-
-    /* Chat Button Styles */
-    .chat-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background: rgba(232, 93, 117, 0.6);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(232, 93, 117, 0.2);
-      transition: all 0.3s ease;
-      z-index: 1000;
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .chat-button:hover {
-      background: rgba(232, 93, 117, 0.8);
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(232, 93, 117, 0.3);
-    }
-
-    .chat-button.form-open {
-      opacity: 0;
-      transform: scale(0.8);
-      pointer-events: none;
-    }
-
-    /* Chat Form Styles */
-    .chat-form-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 320px;
-      max-height: 450px;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      z-index: 999;
-      transition: all 0.3s ease;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .chat-form-container.hidden {
-      opacity: 0;
-      transform: translateY(20px);
-      pointer-events: none;
-    }
-
-    .chat-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .chat-header h3 {
-      margin: 0;
-      font-size: 16px;
-      color: #fff;
-    }
-
-    .chat-close-button {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: rgba(255, 255, 255, 0.6);
-      transition: color 0.3s ease;
-    }
-
-    .chat-close-button:hover {
-      color: #fff;
-    }
-
-    .form-group {
-      padding: 8px 16px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 14px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      transition: border-color 0.3s ease, background-color 0.3s ease;
-      box-sizing: border-box;
-    }
-
-    .form-group input::placeholder,
-    .form-group textarea::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #E85D75;
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .submit-button {
-      width: calc(100% - 32px);
-      margin: 16px;
-      background: rgba(232, 93, 117, 0.8);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .submit-button:hover {
-      background: rgba(232, 93, 117, 1);
-      transform: translateY(-1px);
-    }
-
-    .success-message {
-      padding: 20px;
-      text-align: center;
-      color: #fff;
-    }
-
-    .success-message h3 {
-      color: #4CAF50;
-      margin-bottom: 10px;
-    }
-
-    .new-message-button {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      margin-top: 15px;
-      transition: all 0.3s ease;
-    }
-
-    .new-message-button:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    @media (max-width: 500px) {
-      .card {
-        padding: 20px;
-      }
-      .profile-picture {
-        width: 120px;
-        height: 120px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-      
-      .chat-form-container {
-        width: calc(100vw - 40px);
-        right: 20px;
-        left: 20px;
-      }
-    }
-
-    @media (max-width: 380px) {
-      .chat-form-container {
-        bottom: 10px;
-        right: 10px;
-        left: 10px;
-        width: auto;
-      }
-      
-      .chat-button {
-        bottom: 10px;
-        right: 10px;
-      }
+      background-color: var(--modal-bg) !important;
     }
   </style>
 </head>
 <body>
+  <!-- Dark Mode Toggle Button -->
+  <div class="bulb-toggle" id="darkModeToggle" title="Toggle dark mode">
+    <svg viewBox="0 0 24 24">
+      <path d="M9 21h6v-1.5H9V21zm3-19C6.48 2 2 6.48 2 12c0 3.74 2.55 6.85 6 7.74V21h8v-1.26c3.45-.89 6-4 6-7.74 0-5.52-4.48-10-10-10z"/>
+    </svg>
+  </div>
+
   <video autoplay muted loop id="auroraBackground">
     <source src="https://videos.pexels.com/video-files/2335977/2335977-uhd_2560_1440_24fps.mp4">
     Your browser does not support HTML5 video.
@@ -406,7 +115,6 @@
     </div>
   </div>
 
-  <!-- Chat Widget -->
   <div id="chatButton" class="chat-button">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
       <path d="M20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H6V22L10 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H9.17L7 18.17V16H4V4H20V16Z" fill="currentColor"/>
@@ -424,24 +132,23 @@
       </div>
       
       <form id="chatForm" action="https://formsubmit.co/iamrahuljacobrj@gmail.com" method="POST">
-        <!-- Hidden fields for FormSubmit -->
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="box">
         <input type="hidden" name="_subject" value="Anonymous message from your website">
         <input type="hidden" name="_next" value="https://rahuljacobj.github.io/">
-        
+
         <div class="form-group">
           <input type="text" name="name" placeholder="Your name (optional)" required>
         </div>
-        
+
         <div class="form-group">
           <textarea name="message" placeholder="Your message..." rows="5" required></textarea>
         </div>
-        
+
         <button type="submit" class="submit-button">Send Message</button>
       </form>
     </div>
-    
+
     <div id="successMessage" class="success-message" style="display: none;">
       <h3>✓ Message Sent!</h3>
       <p>Thanks for reaching out! I'll get back to you soon.</p>
@@ -450,7 +157,11 @@
   </div>
 
   <script>
-    // About Me Modal
+    const darkToggle = document.getElementById('darkModeToggle');
+    darkToggle.addEventListener('click', () => {
+      document.body.classList.toggle('darkmode');
+    });
+
     const modal = document.getElementById("aboutMeModal");
     const profilePic = document.getElementById("profilePicture");
     const closeBtn = document.getElementById("closeBtn");
@@ -469,7 +180,6 @@
       }
     }
 
-    // Chat Widget Functionality
     document.addEventListener('DOMContentLoaded', function() {
       const chatButton = document.getElementById('chatButton');
       const chatFormContainer = document.getElementById('chatFormContainer');
@@ -478,15 +188,13 @@
       const chatFormDiv = document.getElementById('chatFormDiv');
       const successMessage = document.getElementById('successMessage');
       const newMessageButton = document.getElementById('newMessageButton');
-      
+
       let isOpen = false;
-      
+
       function openChat() {
         chatFormContainer.classList.remove('hidden');
         chatButton.classList.add('form-open');
         isOpen = true;
-        
-        // Focus on first input after animation
         setTimeout(() => {
           const firstInput = chatForm.querySelector('input');
           if (firstInput) {
@@ -494,31 +202,27 @@
           }
         }, 300);
       }
-      
+
       function closeChat() {
         chatFormContainer.classList.add('hidden');
         chatButton.classList.remove('form-open');
         isOpen = false;
-        
-        // Reset form and hide success message
         setTimeout(() => {
           chatForm.reset();
           chatFormDiv.style.display = 'block';
           successMessage.style.display = 'none';
         }, 300);
       }
-      
+
       function showSuccessMessage() {
         chatFormDiv.style.display = 'none';
         successMessage.style.display = 'block';
       }
-      
+
       function showForm() {
         chatFormDiv.style.display = 'block';
         successMessage.style.display = 'none';
         chatForm.reset();
-        
-        // Focus on first input
         setTimeout(() => {
           const firstInput = chatForm.querySelector('input');
           if (firstInput) {
@@ -526,22 +230,17 @@
           }
         }, 100);
       }
-      
-      // Event listeners
+
       chatButton.addEventListener('click', openChat);
       chatCloseButton.addEventListener('click', closeChat);
       newMessageButton.addEventListener('click', showForm);
-      
-      // Handle form submission
+
       chatForm.addEventListener('submit', function(e) {
-        // Let the form submit naturally to FormSubmit
-        // Show success message after a short delay
         setTimeout(() => {
           showSuccessMessage();
         }, 500);
       });
-      
-      // Close when clicking outside
+
       document.addEventListener('click', function(e) {
         if (isOpen && 
             !chatFormContainer.contains(e.target) && 
@@ -549,8 +248,7 @@
           closeChat();
         }
       });
-      
-      // Close on escape key
+
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && isOpen) {
           closeChat();
