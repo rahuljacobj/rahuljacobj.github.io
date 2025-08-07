@@ -33,7 +33,9 @@
 
     body {
       font-family: 'Open Sans', sans-serif;
-      background-color: var(--bg);
+      background: linear-gradient(-45deg, #f9d423, #ff4e50, #1e90ff, #43cea2);
+      background-size: 400% 400%;
+      animation: gradient 20s ease infinite;
       color: var(--text);
       display: flex;
       justify-content: center;
@@ -43,15 +45,22 @@
       transition: background-color 0.3s, color 0.3s;
     }
 
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .container {
       text-align: center;
       background: var(--card);
       padding: 40px;
       border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       max-width: 600px;
       width: 100%;
       position: relative;
+      z-index: 1;
     }
 
     .theme-toggle {
@@ -127,6 +136,9 @@
       opacity: 0;
       transition: all 0.6s ease-in-out;
       color: var(--text);
+      text-align: justify;
+      line-height: 1.6;
+      padding: 0 10px;
     }
 
     #aboutToggle:checked + .bubble-label + .bubble-content {
@@ -182,8 +194,8 @@
 
     <div class="bubble-content">
       <p>
-        I'm Rahul, an MBA graduate with experience in financial operations and data handling.<br>
-        I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work.<br>
+        I'm Rahul, an MBA graduate with experience in financial operations and data handling.  
+        I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work.  
         I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.
       </p>
       <label for="aboutToggle" class="close-btn">Close</label>
