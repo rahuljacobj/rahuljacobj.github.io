@@ -13,22 +13,47 @@
       font-family: 'Inter', sans-serif;
     }
     body {
-      min-height: 100vh;
+      height: 100vh;
+      background: #0f2027;
+      overflow: hidden;
+      color: #fff;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #1f1c2c, #928dab);
-      background-size: 400% 400%;
-      animation: gradientMove 15s ease infinite;
-      color: #fff;
+      align-items: center;
+      position: relative;
       padding: 40px 20px;
     }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+
+    /* Rain overlay */
+    .rain {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/NMZzjU4.gif') repeat;
+      background-size: cover;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
     }
+
+    .glass-card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
     .profile-pic {
       width: 120px;
       height: 120px;
@@ -37,58 +62,48 @@
       border: 3px solid #fff;
       margin-bottom: 20px;
     }
+
     h1 {
       font-size: 2rem;
       margin-bottom: 10px;
     }
-    .buttons {
+
+    .btn-container {
       display: flex;
+      justify-content: center;
       gap: 15px;
       margin-top: 20px;
       flex-wrap: wrap;
-      justify-content: center;
     }
+
     .btn {
       padding: 12px 24px;
       border-radius: 12px;
-      background-color: #ffffff20;
+      background-color: rgba(255, 255, 255, 0.15);
       color: #fff;
       border: 1px solid #fff;
       cursor: pointer;
       transition: background 0.3s ease;
       min-width: 160px;
-      text-align: center;
     }
+
     .btn:hover {
-      background-color: #ffffff40;
+      background-color: rgba(255, 255, 255, 0.3);
     }
+
     #aboutSection {
-      max-width: 400px;
       margin-top: 20px;
-      padding: 20px;
-      border-radius: 15px;
-      background: #ffffff10;
-      border: 1px solid #fff;
       opacity: 0;
       transform: scale(0.95);
       transition: opacity 0.4s ease, transform 0.4s ease;
-      text-align: center;
       line-height: 1.5;
     }
+
     #aboutSection.show {
       opacity: 1;
       transform: scale(1);
     }
-    .dark-mode-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      font-size: 20px;
-      color: #fff;
-      cursor: pointer;
-    }
+
     .linkedin {
       margin-top: 20px;
     }
@@ -100,37 +115,30 @@
   </style>
 </head>
 <body>
-  <!-- Visitor tracker (Counter.dev - invisible) -->
+  <div class="rain"></div>
+
+  <div class="glass-card">
+    <img src="profile.jpg" alt="Rahul's photo" class="profile-pic" />
+    <h1>Rahul Jacob</h1>
+
+    <div class="btn-container">
+      <div class="btn" onclick="toggleAbout()">About Me</div>
+      <a href="Rahul_Jacob_Resume_j.pdf" class="btn" download>Download Resume</a>
+    </div>
+
+    <div id="aboutSection">
+      I'm Rahul, an MBA graduate with experience in financial operations and data handling. I've worked at Northern Trust and am passionate about research, personal growth, and meaningful work. I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.
+    </div>
+
+    <div class="linkedin">
+      <a href="https://www.linkedin.com/in/jacobrahulj/" target="_blank">🔗 LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- Visitor counter -->
   <script defer src="https://counter.dev/script.js" data-id="a7d7a1cb-7f65-4f4c-a5f2-rahuljacobj.github.io" data-utcoffset="5.5"></script>
 
-  <button id="darkModeToggle" class="dark-mode-toggle"><span id="toggleIcon">🌙</span></button>
-
-  <img src="profile.jpg" alt="Rahul's photo" class="profile-pic" />
-
-  <h1>Rahul Jacob</h1>
-
-  <div class="buttons">
-    <div class="btn" onclick="toggleAbout()">About Me</div>
-    <a href="Rahul_Jacob_Resume_j.pdf" class="btn" download>Download Resume</a>
-  </div>
-
-  <div id="aboutSection">
-    I'm Rahul, an MBA graduate with experience in financial operations and data handling. I've worked at Northern Trust and am passionate about research, personal growth, and meaningful work. I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.
-  </div>
-
-  <div class="linkedin">
-    <a href="https://www.linkedin.com/in/jacobrahulj/" target="_blank">🔗 LinkedIn</a>
-  </div>
-
   <script>
-    const darkToggle = document.getElementById('darkModeToggle');
-    const toggleIcon = document.getElementById('toggleIcon');
-
-    darkToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      toggleIcon.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    });
-
     function toggleAbout() {
       const section = document.getElementById('aboutSection');
       section.classList.toggle('show');
