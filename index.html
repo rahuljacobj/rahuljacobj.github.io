@@ -2,215 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rahul Jacob</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" />
   <style>
-    :root {
-      --bg: #f8f9fa;
-      --text: #333;
-      --card: #fff;
-      --accent: #343a40;
-      --hover: #212529;
-      --bubble: #e9ecef;
-    }
-
-    body.dark {
-      --bg: #121212;
-      --text: #eaeaea;
-      --card: #1e1e1e;
-      --accent: #0d6efd;
-      --hover: #0b5ed7;
-      --bubble: #2c2f33;
-    }
-
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
-
     body {
-      font-family: 'Open Sans', sans-serif;
-      background: linear-gradient(-45deg, #f9d423, #ff4e50, #1e90ff, #43cea2);
-      background-size: 400% 400%;
-      animation: gradient 20s ease infinite;
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
-      padding: 20px;
-      transition: background-color 0.3s, color 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      color: #fff;
+      padding: 40px 20px;
     }
-
-    @keyframes gradient {
+    @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
-    .container {
-      text-align: center;
-      background: var(--card);
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      max-width: 600px;
-      width: 100%;
-      position: relative;
-      z-index: 1;
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-      font-size: 20px;
-      color: var(--accent);
-    }
-
     .profile-pic {
       width: 120px;
       height: 120px;
       border-radius: 50%;
       object-fit: cover;
+      border: 3px solid #fff;
       margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 36px;
-      margin-bottom: 5px;
+      font-size: 2rem;
+      margin-bottom: 10px;
     }
-
-    p.subtitle {
-      font-size: 18px;
-      color: var(--text);
-      margin-bottom: 20px;
+    .buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-
-    a.button {
-      display: inline-block;
+    .btn {
       padding: 12px 24px;
-      background-color: var(--accent);
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      transition: background 0.3s;
-    }
-
-    a.button:hover {
-      background-color: var(--hover);
-    }
-
-    #aboutToggle {
-      display: none;
-    }
-
-    .bubble-label {
-      display: inline-block;
-      margin: 15px auto;
-      padding: 12px 24px;
-      background-color: var(--bubble);
-      border-radius: 30px;
+      border-radius: 12px;
+      background-color: #ffffff20;
+      color: #fff;
+      border: 1px solid #fff;
       cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      animation: pulse 2s infinite;
+      transition: background 0.3s ease;
+      min-width: 160px;
+      text-align: center;
     }
-
-    .bubble-label:hover {
-      transform: scale(1.05);
+    .btn:hover {
+      background-color: #ffffff40;
     }
-
-    .bubble-content {
-      margin-top: 15px;
-      max-height: 0;
-      overflow: hidden;
+    #aboutSection {
+      max-width: 400px;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      background: #ffffff10;
+      border: 1px solid #fff;
       opacity: 0;
-      transition: all 0.6s ease-in-out;
-      color: var(--text);
-      text-align: justify;
-      line-height: 1.6;
-      padding: 0 10px;
+      transform: scale(0.95);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      text-align: center;
+      line-height: 1.5;
     }
-
-    #aboutToggle:checked + .bubble-label + .bubble-content {
-      max-height: 500px;
+    #aboutSection.show {
       opacity: 1;
+      transform: scale(1);
     }
-
-    .close-btn {
-      margin-top: 15px;
-      font-size: 15px;
-      color: var(--text);
+    .dark-mode-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #fff;
       cursor: pointer;
-      text-decoration: underline;
     }
-
-    .social {
-      margin-top: 25px;
+    .linkedin {
+      margin-top: 20px;
     }
-
-    .social a {
-      color: #0a66c2;
-      font-size: 24px;
-      margin: 0 10px;
+    .linkedin a {
+      color: #fff;
       text-decoration: none;
-    }
-
-    .social a:hover {
-      color: #084482;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
-      💡
-    </div>
+  <!-- Visitor tracker (Counter.dev - invisible) -->
+  <script defer src="https://counter.dev/script.js" data-id="a7d7a1cb-7f65-4f4c-a5f2-rahuljacobj.github.io" data-utcoffset="5.5"></script>
 
-    <img src="profile.jpg" alt="Rahul's Photo" class="profile-pic" />
+  <button id="darkModeToggle" class="dark-mode-toggle"><span id="toggleIcon">🌙</span></button>
 
-    <h1>Rahul Jacob</h1>
-    <p class="subtitle">Finance Professional | Analyst | MBA</p>
+  <img src="profile.jpg" alt="Rahul's photo" class="profile-pic" />
 
-    <a class="button" href="Rahul_Jacob_Resume_j.pdf" target="_blank">📄 View Resume</a>
+  <h1>Rahul Jacob</h1>
 
-    <input type="checkbox" id="aboutToggle" />
-    <label for="aboutToggle" class="bubble-label">About Me</label>
+  <div class="buttons">
+    <div class="btn" onclick="toggleAbout()">About Me</div>
+    <a href="Rahul_Jacob_Resume_j.pdf" class="btn" download>Download Resume</a>
+  </div>
 
-    <div class="bubble-content">
-      <p>
-        I'm Rahul, an MBA graduate with experience in financial operations and data handling.  
-        I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work.  
-        I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.
-      </p>
-      <label for="aboutToggle" class="close-btn">Close</label>
-    </div>
+  <div id="aboutSection">
+    I'm Rahul, an MBA graduate with experience in financial operations and data handling. I've worked at Northern Trust and am passionate about research, personal growth, and meaningful work. I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.
+  </div>
 
-    <div class="social">
-      <a href="https://www.linkedin.com/in/jacobrahulj/" target="_blank" title="LinkedIn Profile">
-        <i class="fab fa-linkedin"></i>
-      </a>
-    </div>
+  <div class="linkedin">
+    <a href="https://www.linkedin.com/in/jacobrahulj/" target="_blank">🔗 LinkedIn</a>
   </div>
 
   <script>
-    function toggleTheme() {
+    const darkToggle = document.getElementById('darkModeToggle');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    darkToggle.addEventListener('click', () => {
       document.body.classList.toggle('dark');
+      toggleIcon.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    });
+
+    function toggleAbout() {
+      const section = document.getElementById('aboutSection');
+      section.classList.toggle('show');
     }
   </script>
 </body>
