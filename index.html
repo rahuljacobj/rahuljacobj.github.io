@@ -5,16 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rahul Jacob</title>
   <style>
+    /* Fullscreen Video Background */
     #auroraBackground {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      min-width: 100%;
+      min-height: 100%;
+      /* THE FIX: 'contain' ensures the video is never cropped or "zoomed in" */
+      object-fit: contain;
       z-index: -1;
       filter: brightness(0.6) blur(2px);
     }
+
+    /* General Body Styling */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       margin: 0;
@@ -24,8 +28,11 @@
       height: 100vh;
       overflow: hidden;
       color: #fff;
+      /* This black background will show as bars if the video's shape doesn't match the screen */
       background-color: #000;
     }
+
+    /* Glass Card Styling */
     .card {
       z-index: 1;
       background: rgba(255, 255, 255, 0.08);
@@ -38,10 +45,18 @@
       text-align: center;
       animation: fadeInCard 1s ease-out forwards;
     }
+    
     @keyframes fadeInCard {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .profile-picture {
       width: 150px;
       height: 150px;
@@ -52,8 +67,16 @@
       cursor: pointer;
       transition: transform 0.3s ease;
     }
-    .profile-picture:hover { transform: scale(1.05); }
-    h1 { font-size: 2em; margin: 0; }
+
+    .profile-picture:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: 0;
+    }
+
     .button {
       display: inline-block;
       background: rgba(255, 255, 255, 0.15);
@@ -68,11 +91,35 @@
       margin-top: 20px;
       transition: background-color 0.3s, transform 0.3s;
     }
-    .button:hover { background-color: rgba(255, 255, 255, 0.3); transform: scale(1.05); }
-    .contact-links { margin-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px; }
-    .contact-links a { margin: 0 15px; display: inline-block; transition: transform 0.2s ease; }
-    .contact-links a:hover { transform: translateY(-3px); }
-    .contact-links svg { width: 28px; height: 28px; fill: #fff; }
+
+    .button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    
+    .contact-links {
+        margin-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+    }
+
+    .contact-links a {
+        margin: 0 15px;
+        display: inline-block;
+        transition: transform 0.2s ease;
+    }
+    
+    .contact-links a:hover {
+        transform: translateY(-3px);
+    }
+
+    .contact-links svg {
+        width: 28px;
+        height: 28px;
+        fill: #fff;
+    }
+
+    /* Modal Styling */
     .modal {
       opacity: 0;
       pointer-events: none;
@@ -87,7 +134,12 @@
       -webkit-backdrop-filter: blur(5px);
       transition: opacity 0.3s ease-in-out;
     }
-    .modal.show { opacity: 1; pointer-events: auto; }
+    
+    .modal.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
     .modal-content {
       background: rgba(30, 30, 30, 0.5);
       backdrop-filter: blur(20px);
@@ -105,6 +157,7 @@
       transform: translate(-50%, -50%);
       line-height: 1.6;
     }
+
     .close-button {
       color: #aaa;
       position: absolute;
@@ -114,19 +167,31 @@
       font-weight: bold;
       cursor: pointer;
     }
-    .close-button:hover { color: #fff; }
+
+    .close-button:hover {
+      color: #fff;
+    }
+
     @media (max-width: 500px) {
-      .card { padding: 20px; }
-      .profile-picture { width: 120px; height: 120px; }
-      h1 { font-size: 1.8em; }
+      .card {
+        padding: 20px;
+      }
+      .profile-picture {
+        width: 120px;
+        height: 120px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
     }
   </style>
 </head>
 <body>
   <video autoplay muted loop id="auroraBackground">
-    <source src="https://videos.pexels.com/video-files/2099528/2099528-hd_1920_1080_25fps.mp4" type="video/mp4">
+    <source src="5701989-uhd_2160_1440_25fps.mp4" type="video/mp4">
     Your browser does not support HTML5 video.
   </video>
+
   <div class="card">
     <header>
       <img src="profile.jpg" alt="Profile Picture" class="profile-picture" id="profilePicture">
@@ -144,21 +209,38 @@
         </a>
     </footer>
   </div>
+
   <div id="aboutMeModal" class="modal">
     <div class="modal-content">
       <span class="close-button" id="closeBtn">&times;</span>
       <h2>About Me</h2>
-      <p>I'm Rahul, an MBA graduate with experience in financial operations and data handling. I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work.</p>
-      <p>I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.</p>
+      <p>
+        I'm Rahul, an MBA graduate with experience in financial operations and data handling. I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work.
+      </p>
+      <p>
+        I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.
+      </p>
     </div>
   </div>
+
   <script>
     const modal = document.getElementById("aboutMeModal");
     const profilePic = document.getElementById("profilePicture");
     const closeBtn = document.getElementById("closeBtn");
-    profilePic.onclick = function() { modal.classList.add("show"); }
-    closeBtn.onclick = function() { modal.classList.remove("show"); }
-    window.onclick = function(event) { if (event.target == modal) { modal.classList.remove("show"); } }
+
+    profilePic.onclick = function() {
+      modal.classList.add("show");
+    }
+
+    closeBtn.onclick = function() {
+      modal.classList.remove("show");
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.classList.remove("show");
+      }
+    }
   </script>
 </body>
 </html>
