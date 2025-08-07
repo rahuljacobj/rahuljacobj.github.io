@@ -20,12 +20,6 @@
       justify-content: center;
       align-items: center;
       color: white;
-      animation: fadeIn 1.2s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .container {
@@ -36,6 +30,7 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       max-width: 500px;
       backdrop-filter: blur(8px);
+      animation: fadeIn 1s ease-in;
     }
 
     h1 {
@@ -46,7 +41,6 @@
 
     p {
       font-size: 20px;
-      font-weight: 400;
       margin-bottom: 30px;
       color: #dcdcdc;
     }
@@ -67,6 +61,52 @@
       color: white;
       transform: scale(1.05);
     }
+
+    /* Toggle Bubble */
+    #aboutToggle {
+      display: none;
+    }
+
+    .bubble-label {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: rgba(255,255,255,0.2);
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .bubble-label:hover {
+      background-color: rgba(255,255,255,0.3);
+    }
+
+    .bubble-content {
+      margin-top: 20px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.5s ease-in-out;
+    }
+
+    #aboutToggle:checked + .bubble-label + .bubble-content {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #ffdddd;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -74,6 +114,18 @@
     <h1>Rahul Jacob</h1>
     <p>Finance Professional | Analyst | MBA</p>
     <a class="button" href="Rahul_Jacob_Resume_j.pdf" download>📄 Download Resume</a>
+
+    <input type="checkbox" id="aboutToggle" />
+    <label for="aboutToggle" class="bubble-label">🔍 About Me</label>
+
+    <div class="bubble-content">
+      <p>
+        I'm Rahul, an MBA graduate with experience in financial operations and data handling.  
+        I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work.  
+        I enjoy meditation, books like *Sapiens*, and thinking deeply about life and the world.
+      </p>
+      <label for="aboutToggle" class="close-btn">Close</label>
+    </div>
   </div>
 </body>
 </html>
