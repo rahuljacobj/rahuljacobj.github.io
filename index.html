@@ -177,25 +177,25 @@
       right: 20px;
       width: 60px;
       height: 60px;
-      background: rgba(232, 93, 117, 0.9);
+      background: rgba(232, 93, 117, 0.6);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(232, 93, 117, 0.3);
+      box-shadow: 0 4px 12px rgba(232, 93, 117, 0.2);
       transition: all 0.3s ease;
       z-index: 1000;
       color: white;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .chat-button:hover {
-      background: rgba(232, 93, 117, 1);
+      background: rgba(232, 93, 117, 0.8);
       transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(232, 93, 117, 0.4);
+      box-shadow: 0 6px 20px rgba(232, 93, 117, 0.3);
     }
 
     .chat-button.form-open {
@@ -210,13 +210,13 @@
       bottom: 20px;
       right: 20px;
       width: 320px;
-      max-height: 500px;
-      background: rgba(30, 30, 30, 0.95);
+      max-height: 450px;
+      background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 15px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
       z-index: 999;
       transition: all 0.3s ease;
       opacity: 1;
@@ -234,7 +234,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .chat-header h3 {
@@ -248,7 +248,7 @@
       border: none;
       font-size: 24px;
       cursor: pointer;
-      color: #aaa;
+      color: rgba(255, 255, 255, 0.6);
       transition: color 0.3s ease;
     }
 
@@ -267,7 +267,7 @@
       border-radius: 8px;
       padding: 12px;
       font-size: 14px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       color: #fff;
       transition: border-color 0.3s ease, background-color 0.3s ease;
       box-sizing: border-box;
@@ -282,25 +282,27 @@
     .form-group textarea:focus {
       outline: none;
       border-color: #E85D75;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .submit-button {
       width: calc(100% - 32px);
       margin: 16px;
-      background: #E85D75;
+      background: rgba(232, 93, 117, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       color: white;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 8px;
       padding: 12px;
       font-size: 14px;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .submit-button:hover {
-      background: #d14966;
+      background: rgba(232, 93, 117, 1);
       transform: translateY(-1px);
     }
 
@@ -317,6 +319,8 @@
 
     .new-message-button {
       background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff;
       padding: 8px 16px;
@@ -405,7 +409,10 @@
   <!-- Chat Widget -->
   <div id="chatButton" class="chat-button">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M8 12H16M8 8H16M8 16H13M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H21C21.55 4 22 4.45 22 5S21.55 6 21 6H20V19C20 20.1 19.1 21 18 21H6C4.9 21 4 20.1 4 19V6H3C2.45 6 2 5.55 2 5S2.45 4 3 4H7Z" fill="currentColor"/>
+      <path d="M20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H6V22L10 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H9.17L7 18.17V16H4V4H20V16Z" fill="currentColor"/>
+      <circle cx="8" cy="10" r="1.5" fill="currentColor"/>
+      <circle cx="12" cy="10" r="1.5" fill="currentColor"/>
+      <circle cx="16" cy="10" r="1.5" fill="currentColor"/>
     </svg>
   </div>
 
@@ -420,19 +427,15 @@
         <!-- Hidden fields for FormSubmit -->
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="box">
-        <input type="hidden" name="_subject" value="New message from your website">
+        <input type="hidden" name="_subject" value="Anonymous message from your website">
         <input type="hidden" name="_next" value="https://rahuljacobj.github.io/">
         
         <div class="form-group">
-          <input type="text" name="name" placeholder="Your name" required>
+          <input type="text" name="name" placeholder="Your name (optional)" required>
         </div>
         
         <div class="form-group">
-          <input type="email" name="email" placeholder="Your email" required>
-        </div>
-        
-        <div class="form-group">
-          <textarea name="message" placeholder="Your message..." rows="4" required></textarea>
+          <textarea name="message" placeholder="Your message..." rows="5" required></textarea>
         </div>
         
         <button type="submit" class="submit-button">Send Message</button>
