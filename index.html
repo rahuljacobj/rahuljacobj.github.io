@@ -1,199 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahul Jacob</title>
-    <style>
-        :root {
-            --rain-bg-color: #0d1a26; /* Dark blue background */
-            --drop-color: #78c0a8; /* Muted green/blue for raindrops */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rahul Jacob</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background-size: 400% 400%;
+      animation: aurora 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
 
-        /* General Body Styling */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--rain-bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        
-        /* Rain Effect Styling */
-        @keyframes fall {
-            from { transform: translateY(-200px); }
-            to { transform: translateY(100vh); }
-        }
+    @keyframes aurora {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
 
-        .drop {
-            position: absolute;
-            bottom: 100%;
-            width: 2px;
-            height: 120px;
-            pointer-events: none;
-            background: linear-gradient(to top, rgba(255, 255, 255, 0), var(--drop-color));
-            animation: fall 1s linear infinite;
-        }
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      color: #fff;
+      max-width: 500px;
+      width: 90%;
+      z-index: 1;
+    }
 
-        /* Main Content Card */
-        .card {
-            z-index: 1; /* Ensure card is above the rain */
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 500px;
-            text-align: center;
-            color: #fff;
-        }
+    .profile-picture {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 6px solid #25D366; /* WhatsApp green */
+      box-shadow: 0 0 12px rgba(0, 255, 128, 0.4);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-        /* Profile Picture Styling */
-        .profile-picture {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 5px solid #25D366;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+    .profile-picture:hover {
+      transform: scale(1.05);
+    }
 
-        .profile-picture:hover {
-            transform: scale(1.05);
-        }
+    h1 {
+      font-size: 2em;
+      margin: 0;
+    }
 
-        h1 {
-            font-size: 2em;
-            margin: 0;
-        }
+    .button {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
 
-        /* Button Styling */
-        .button {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
+    .button:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
 
-        .button:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
 
-        /* Modal (Popup) Styling */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2; /* Modal should be on top of everything */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
+    .modal-content {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      line-height: 1.6;
+    }
 
-        .modal-content {
-            background: rgba(30, 30, 30, 0.5);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            color: #fff;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            line-height: 1.6;
-        }
+    .close-button {
+      color: #ccc;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        .close-button {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close-button:hover {
-            color: #fff;
-        }
-    </style>
+    .close-button:hover {
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-    
-    <div id="rain-container"></div>
 
-    <div class="card">
-        <header>
-            <img src="profile.jpg" alt="Profile Picture" class="profile-picture" id="profilePicture">
-            <h1>Rahul Jacob</h1>
-        </header>
-        <main>
-            <a href="Rahul_Jacob_Resume_j.pdf" class="button" download>Download Résumé</a>
-        </main>
+  <div class="card">
+    <header>
+      <img src="profile.jpg" alt="Profile Picture" class="profile-picture" id="profilePicture" />
+      <h1>Rahul Jacob</h1>
+    </header>
+    <main>
+      <a href="Rahul_Jacob_Resume_j.pdf" class="button" download>Download Résumé</a>
+    </main>
+  </div>
+
+  <div id="aboutMeModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="closeBtn">&times;</span>
+      <h2>About Me</h2>
+      <p>I'm Rahul, an MBA graduate with experience in financial operations and data handling. I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work. I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.</p>
     </div>
+  </div>
 
-    <div id="aboutMeModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" id="closeBtn">&times;</span>
-            <h2>About Me</h2>
-            <p>I'm Rahul, an MBA graduate with experience in financial operations and data handling. I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work. I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.</p>
-        </div>
-    </div>
+  <script>
+    const modal = document.getElementById("aboutMeModal");
+    const profilePic = document.getElementById("profilePicture");
+    const closeBtn = document.getElementById("closeBtn");
 
-    <script>
-        // --- Rain Effect Script ---
-        const rainContainer = document.getElementById('rain-container');
-        let drops = '';
-        for (let i = 0; i < 100; i++) {
-            const left = Math.floor(Math.random() * 100);
-            const duration = Math.random() * 0.5 + 0.5; // 0.5s to 1s
-            const delay = Math.random() * 5; // 0s to 5s
-            drops += `<div class="drop" style="left: ${left}vw; animation-duration: ${duration}s; animation-delay: ${delay}s;"></div>`;
-        }
-        rainContainer.innerHTML = drops;
-
-        // --- Modal Script ---
-        const modal = document.getElementById("aboutMeModal");
-        const profilePic = document.getElementById("profilePicture");
-        const closeBtn = document.getElementById("closeBtn");
-
-        profilePic.onclick = function() {
-          modal.style.display = "block";
-        }
-
-        closeBtn.onclick = function() {
-          modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        }
-    </script>
+    profilePic.onclick = () => { modal.style.display = "block"; }
+    closeBtn.onclick = () => { modal.style.display = "none"; }
+    window.onclick = (event) => {
+      if (event.target === modal) modal.style.display = "none";
+    }
+  </script>
 
 </body>
 </html>
