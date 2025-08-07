@@ -7,6 +7,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    :root {
+      --bg: #f8f9fa;
+      --text: #333;
+      --card: #fff;
+      --accent: #343a40;
+      --hover: #212529;
+      --bubble: #e9ecef;
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #eaeaea;
+      --card: #1e1e1e;
+      --accent: #0d6efd;
+      --hover: #0b5ed7;
+      --bubble: #2c2f33;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -15,41 +33,61 @@
 
     body {
       font-family: 'Open Sans', sans-serif;
-      background-color: #f8f9fa;
-      color: #333;
+      background-color: var(--bg);
+      color: var(--text);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .container {
       text-align: center;
-      background: #ffffff;
+      background: var(--card);
       padding: 40px;
       border-radius: 12px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.08);
       max-width: 600px;
       width: 100%;
+      position: relative;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--accent);
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
       font-size: 36px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     p.subtitle {
       font-size: 18px;
-      color: #666;
-      margin-bottom: 25px;
+      color: var(--text);
+      margin-bottom: 20px;
     }
 
     a.button {
       display: inline-block;
       padding: 12px 24px;
-      background-color: #343a40;
+      background-color: var(--accent);
       color: white;
       text-decoration: none;
       border-radius: 6px;
@@ -59,10 +97,9 @@
     }
 
     a.button:hover {
-      background-color: #212529;
+      background-color: var(--hover);
     }
 
-    /* Toggle Section */
     #aboutToggle {
       display: none;
     }
@@ -70,16 +107,17 @@
     .bubble-label {
       display: inline-block;
       margin: 15px auto;
-      padding: 10px 20px;
-      background-color: #e9ecef;
-      border-radius: 20px;
+      padding: 12px 24px;
+      background-color: var(--bubble);
+      border-radius: 30px;
       cursor: pointer;
       font-weight: 600;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
     }
 
     .bubble-label:hover {
-      background-color: #dee2e6;
+      transform: scale(1.05);
     }
 
     .bubble-content {
@@ -87,8 +125,8 @@
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transition: all 0.5s ease-in-out;
-      color: #555;
+      transition: all 0.6s ease-in-out;
+      color: var(--text);
     }
 
     #aboutToggle:checked + .bubble-label + .bubble-content {
@@ -99,7 +137,7 @@
     .close-btn {
       margin-top: 15px;
       font-size: 15px;
-      color: #888;
+      color: var(--text);
       cursor: pointer;
       text-decoration: underline;
     }
@@ -118,10 +156,22 @@
     .social a:hover {
       color: #084482;
     }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+      🌓
+    </div>
+
+    <img src="profile.jpg" alt="Rahul's Photo" class="profile-pic" />
+
     <h1>Rahul Jacob</h1>
     <p class="subtitle">Finance Professional | Analyst | MBA</p>
 
@@ -145,5 +195,11 @@
       </a>
     </div>
   </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+  </script>
 </body>
 </html>
