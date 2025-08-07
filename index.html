@@ -5,84 +5,184 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rahul Jacob</title>
     <style>
+        /* General Body Styling */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f0f2f5;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Video Background Styling */
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; /* Place it behind all other content */
+            object-fit: cover; /* Cover the entire screen without stretching */
+            filter: brightness(0.7); /* Optional: Darken the video slightly to make text pop */
+        }
+
+        /* Container to center the main card */
+        .content-wrapper {
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
         }
 
+        /* Main Content Card */
         .card {
-            background-color: #ffffff;
+            z-index: 1; /* Ensure card is above the video */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            padding: 40px;
+            padding: 30px;
             max-width: 500px;
-            width: 100%;
             text-align: center;
+            color: #fff;
         }
 
+        /* Profile Picture Styling */
         .profile-picture {
             width: 150px;
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 20px;
-            border: 5px solid #fff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 5px solid #25D366;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.05);
         }
 
         h1 {
             font-size: 2em;
-            margin-bottom: 10px;
-            color: #333;
+            margin: 0;
         }
 
-        .bio p {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 25px;
-        }
-
+        /* Button Styling */
         .button {
             display: inline-block;
-            background-color: #007bff;
-            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
             padding: 12px 25px;
             text-decoration: none;
             border-radius: 25px;
             font-weight: bold;
-            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         .button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Modal (Popup) Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2; /* Modal should be on top of everything */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5); /* This darkens the whole screen behind the modal */
+        }
+
+        /* "About Me" Matte Frosted Glass Effect */
+        .modal-content {
+            background: rgba(0, 0, 0, 0.3); /* Made it darker and more transparent */
+            backdrop-filter: blur(20px); /* Increased the blur for a frostier look */
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Softened the border */
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            line-height: 1.6;
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: #fff;
         }
     </style>
 </head>
 <body>
+    
+    <video autoplay loop muted playsinline id="bg-video">
+        <source src="12225760_1920_1080_30fps.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
-    <div class="card">
-        <header>
-            <img src="profile.jpg" alt="Profile Picture" class="profile-picture">
-            <h1>Rahul Jacob</h1>
-        </header>
-        <main>
-            <section class="bio">
-                <p>I'm Rahul, an MBA graduate with experience in financial operations and data handling. I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.</p>
-            </section>
-            <section class="resume">
+    <div class="content-wrapper">
+        <div class="card">
+            <header>
+                <img src="profile.jpg" alt="Profile Picture" class="profile-picture" id="profilePicture">
+                <h1>Rahul Jacob</h1>
+            </header>
+            <main>
                 <a href="Rahul_Jacob_Resume_j.pdf" class="button" download>Download Résumé</a>
-            </section>
-        </main>
+            </main>
+        </div>
     </div>
+
+    <div id="aboutMeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeBtn">&times;</span>
+            <h2>About Me</h2>
+            <p>I'm Rahul, an MBA graduate with experience in financial operations and data handling. I’ve worked at Northern Trust and am passionate about research, personal growth, and meaningful work. I enjoy meditation, books like <em>Sapiens</em>, and thinking deeply about life and the world.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- Modal Script ---
+        const modal = document.getElementById("aboutMeModal");
+        const profilePic = document.getElementById("profilePicture");
+        const closeBtn = document.getElementById("closeBtn");
+
+        profilePic.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        closeBtn.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
 
 </body>
 </html>
